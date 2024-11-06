@@ -19,7 +19,7 @@ token_url = 'https://api.fitbit.com/oauth2/token'
 
 # Define the OAuth2 session object
 def get_fitbit_oauth():
-    return OAuth2Session(client_id, redirect_uri='http://localhost:5000/callback',
+    return OAuth2Session(client_id, redirect_uri='https://calmwatch-production.up.railway.app/callback',
                          scope=['sleep', 'heartrate', 'profile', 'activity', 'heartrate', 'nutrition',
                                 'oxygen_saturation', 'respiratory_rate', 'settings', 'temperature', 'weight'])
 
