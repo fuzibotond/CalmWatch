@@ -10,10 +10,9 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Secret key for session handling
 
-app.config.from_pyfile('config.py')  # Load config from config.py
 
-client_id = app.config['CLIENT_ID']
-client_secret = app.config['CLIENT_SECRET']
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
 authorization_base_url = 'https://www.fitbit.com/oauth2/authorize'
 token_url = 'https://api.fitbit.com/oauth2/token'
 
