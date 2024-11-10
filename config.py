@@ -16,12 +16,20 @@ TOKEN_URL = 'https://api.fitbit.com/oauth2/token'
 SUBSCRIPTION_ID = os.getenv("SUBSCRIPTION_ID")
 
 
+PANIC_THRESHOLD_RMSSD = os.getenv("PANIC_THRESHOLD_RMSSD")
+PANIC_THRESHOLD_HF = os.getenv("PANIC_THRESHOLD_HF")
+PANIC_THRESHOLD_LF = os.getenv("PANIC_THRESHOLD_LF")
+PANIC_THRESHOLD_COVERAGE = os.getenv("PANIC_THRESHOLD_COVERAGE")
+PANIC_THRESHOLD_HR_ZONE_MINUTES = os.getenv("PANIC_THRESHOLD_HR_ZONE_MINUTES")
+PANIC_THRESHOLD_HR_INCREASE = os.getenv("PANIC_THRESHOLD_HR_INCREASE")
+
+
 # Threshold values for detecting panic attacks
 PANIC_THRESHOLD = {
-    "rmssd": 30,  # Low RMSSD indicating high physiological arousal
-    "hf": 1000,  # High HF component indicating autonomic response
-    "lf": 1000,  # High LF component indicating autonomic response
-    "coverage": 0.9,  # Minimum coverage for reliable data
-    "hr_zone_minutes": 10,  # Significant time in elevated heart rate zones
-    "hr_increase": 1.5,  # 50% increase from resting heart rate
+    "rmssd": os.getenv("PANIC_THRESHOLD_RMSSD"),  # Low RMSSD indicating high physiological arousal
+    "hf": os.getenv("PANIC_THRESHOLD_HF"),  # High HF component indicating autonomic response
+    "lf": os.getenv("PANIC_THRESHOLD_LF"),  # High LF component indicating autonomic response
+    "coverage": os.getenv("PANIC_THRESHOLD_COVERAGE"),  # Minimum coverage for reliable data
+    "hr_zone_minutes": os.getenv("PANIC_THRESHOLD_HR_ZONE_MINUTES"),  # Significant time in elevated heart rate zones
+    "hr_increase": os.getenv("PANIC_THRESHOLD_HR_INCREASE"),  # 50% increase from resting heart rate
 }
