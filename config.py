@@ -10,6 +10,7 @@ CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 VERIFICATION_CODE = os.getenv("VERIFICATION_CODE")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
+MONGODB_URI = os.getenv("MONGODB_URI")
 AUTHORIZATION_BASE_URL = 'https://www.fitbit.com/oauth2/authorize'
 TOKEN_URL = 'https://api.fitbit.com/oauth2/token'
 SUBSCRIPTION_ID = os.getenv("SUBSCRIPTION_ID")
