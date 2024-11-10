@@ -1,13 +1,13 @@
 # auth.py
 from flask import session, redirect, request, jsonify
 from requests_oauthlib import OAuth2Session
-from config import CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_BASE_URL, TOKEN_URL, db
+from config import CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_BASE_URL, TOKEN_URL, db, REDIRECT_URI
 
 
 def get_fitbit_oauth():
     return OAuth2Session(
         CLIENT_ID,
-        redirect_uri='http://localhost:5000/callback',
+        redirect_uri=REDIRECT_URI,
         scope=[
             'sleep', 'heartrate', 'profile', 'activity', 'nutrition',
             'oxygen_saturation', 'respiratory_rate', 'settings',
