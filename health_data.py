@@ -1,6 +1,4 @@
-from pymongo import MongoClient
-from datetime import datetime, timedelta
-
+from datetime import datetime
 from config import PANIC_THRESHOLD, MONGODB_URI
 
 # Connect to MongoDB

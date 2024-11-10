@@ -1,7 +1,8 @@
 # auth.py
 from flask import session, redirect, request, jsonify
 from requests_oauthlib import OAuth2Session
-from config import CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_BASE_URL, TOKEN_URL, db, REDIRECT_URI
+from config import CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_BASE_URL, TOKEN_URL, REDIRECT_URI
+from health_data import db
 
 
 def get_fitbit_oauth():

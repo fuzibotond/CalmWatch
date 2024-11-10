@@ -15,11 +15,6 @@ AUTHORIZATION_BASE_URL = 'https://www.fitbit.com/oauth2/authorize'
 TOKEN_URL = 'https://api.fitbit.com/oauth2/token'
 SUBSCRIPTION_ID = os.getenv("SUBSCRIPTION_ID")
 
-# MongoDB Setup
-mongo_client = MongoClient("mongodb://localhost:27017/")  # Replace with your MongoDB URI
-db = mongo_client["health_data"]
-panic_attacks_collection = db["panic_attacks"]
-last_processed_collection = db["last_processed"]
 
 # Threshold values for detecting panic attacks
 PANIC_THRESHOLD = {

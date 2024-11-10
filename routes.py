@@ -4,9 +4,8 @@ from bson import ObjectId
 from flask import request
 from auth import get_fitbit_session
 from config import VERIFICATION_CODE
-from health_data import analyze_and_store_panic_attacks
+from health_data import analyze_and_store_panic_attacks, panic_attacks_collection
 from flask import Blueprint, jsonify
-from config import panic_attacks_collection
 from service import fetch_with_backoff, get_last_processed_date, update_last_processed_date, fetch_fitbit_data, \
     format_response
 
