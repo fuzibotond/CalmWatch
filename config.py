@@ -30,6 +30,8 @@ PANIC_THRESHOLD = {
     "hf": os.getenv("PANIC_THRESHOLD_HF"),  # High HF component indicating autonomic response
     "lf": os.getenv("PANIC_THRESHOLD_LF"),  # High LF component indicating autonomic response
     "coverage": os.getenv("PANIC_THRESHOLD_COVERAGE"),  # Minimum coverage for reliable data
-    "hr_zone_minutes": int(os.getenv("PANIC_THRESHOLD_HR_ZONE_MINUTES")),  # Significant time in elevated heart rate zones
+    "hr_zone_minutes": os.getenv("PANIC_THRESHOLD_HR_ZONE_MINUTES"),  # Significant time in elevated heart rate zones
     "hr_increase": os.getenv("PANIC_THRESHOLD_HR_INCREASE"),  # 50% increase from resting heart rate
+    "hr_spike_increase": os.getenv("PANIC_THRESHOLD_HR_SPIKE_INCREASE"),  # Spike threshold for HR in beats per minute
+    "hr_sustained_duration": os.getenv("PANIC_THRESHOLD_HR_SUSTAINED_DURATION")  # Duration in minutes for sustained elevated HR
 }
