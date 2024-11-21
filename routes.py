@@ -7,7 +7,7 @@ from config import VERIFICATION_CODE
 from health_data import analyze_and_store_panic_attacks, panic_attacks_collection
 from flask import Blueprint, jsonify
 from service import fetch_with_backoff, get_last_processed_date, update_last_processed_date, fetch_fitbit_data, \
-    format_response
+    format_response, get_intraday_heart_rate, get_sleep_data
 
 routes = Blueprint('routes', __name__)
 
@@ -90,33 +90,10 @@ def webhook():
 # 1. Calendar Sleep Tracker
 @routes.route('/api/sleep-tracker', methods=['GET'])
 def get_sleep_tracker():
-    # Get the date from query parameters, or use a default date if not provided
-    date = request.args.get('date', '2024-10-28')
-
-    # Sample response data based on the requested date
-    response = {
-        "date": date,
-        "sleep_distribution": {
-            "light_sleep": 80,
-            "deep_sleep": 20
-        },
-        "bed_time": 1729211400,  # Timestamp for "2024-10-28 01:30 AM"
-        "deep_sleep_time": 21600,  # 6 hours in seconds
-        "light_sleep_time": 7200,  # 2 hours in seconds
-        "wake_up_time": 1729240200,  # Timestamp for "2024-10-28 09:30 AM"
-        "total_sleep_time": 28800  # 8 hours in seconds
-    }
-
-    # Dummy logic to change data based on date (for example purposes)
-    if date == "2024-10-29":
-        response["sleep_distribution"] = {"light_sleep": 70, "deep_sleep": 30}
-        response["bed_time"] = "12:30"
-        response["deep_sleep_time"] = "5 hrs 30 mins"
-        response["light_sleep_time"] = "2 hrs 30 mins"
-        response["wake_up_time"] = "08:30 AM"
-        response["total_sleep_time"] = "8 hrs 0 mins"
-
-    return jsonify(response)
+    # Get the date from query parameters, default to today
+    date = request.args.get('date', datetime.today().strftime("%Y-%m-%d"))
+    response = get_sleep_data(date)
+    return jsonify(response), 200 if "error" not in response else 400
 
 
 # 2. Calendar Trend (Sleep Quality)
@@ -139,17 +116,9 @@ def get_sleep_quality():
 # 4. Heart Rate Page
 @routes.route('/api/heart-rate', methods=['GET'])
 def get_heart_rate():
-    response = {
-        "date": "2024-10-28",
-        "current_bpm": 79,
-        "hourly_readings": [
-            {"time": "09:00 AM", "bpm": 81},
-            {"time": "10:00 AM", "bpm": 64},
-            {"time": "11:00 AM", "bpm": 70}
-        ],
-        "average_bpm_last_3_hours": 71.67
-    }
-    return jsonify(response)
+    date = request.args.get('date', datetime.today().strftime("%Y-%m-%d"))
+    response = get_intraday_heart_rate(date)
+    return jsonify(response), 200 if "error" not in response else 400
 
 
 # 5. My Profile
