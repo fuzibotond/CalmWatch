@@ -69,7 +69,7 @@ def analyze_heart_rate_zones(heart_rate_data):
                 elevated_minutes += zone["minutes"]
 
         # Calculate threshold for significant heart rate increase
-        hr_threshold = resting_hr * PANIC_THRESHOLD["hr_increase"]
+        hr_threshold = resting_hr * int(PANIC_THRESHOLD["hr_increase"])
 
         # Check if the user spent significant time in elevated HR zones
         if elevated_minutes >= int(PANIC_THRESHOLD["hr_zone_minutes"]):
