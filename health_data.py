@@ -47,7 +47,7 @@ def analyze_hrv_data(hrv_data):
 
             # Check if HRV data meets panic thresholds
             if (
-                    rmssd <= PANIC_THRESHOLD["rmssd"] and
+                    rmssd <= float(PANIC_THRESHOLD["rmssd"]) and
                     hf >= PANIC_THRESHOLD["hf"] and
                     lf >= PANIC_THRESHOLD["lf"] and
                     coverage >= PANIC_THRESHOLD["coverage"]
@@ -76,7 +76,7 @@ def analyze_heart_rate_zones(heart_rate_data):
             metrics = {
                 "resting_hr": resting_hr,
                 "elevated_minutes": elevated_minutes,
-                "hr_threshold": hr_threshold
+                "hr_increase": hr_threshold
             }
             criteria = {k: v for k, v in PANIC_THRESHOLD.items() if k in metrics}
             save_panic_attack(date, metrics, criteria, reason="Heart rate zone analysis", reason_type="heart_rate_zone")
