@@ -138,5 +138,5 @@ def analyze_heart_rate_zones(heart_rate_data):
 
 def analyze_and_store_panic_attacks(hrv_data, heart_rate_data):
     # Call both functions
-    # analyze_hrv_data(hrv_data)
+    analyze_hrv_data(hrv_data)
     analyze_heart_rate_zones(heart_rate_data)
