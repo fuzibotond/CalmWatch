@@ -2,6 +2,8 @@ from datetime import datetime
 
 from bson import ObjectId
 from flask import request
+from flask_cors import cross_origin
+
 from auth import get_fitbit_session
 from config import VERIFICATION_CODE
 from health_data import analyze_and_store_panic_attacks, panic_attacks_collection
@@ -11,6 +13,7 @@ from service import fetch_with_backoff, get_last_processed_date, update_last_pro
 
 routes = Blueprint('routes', __name__)
 
+@cross_origin()
 @routes.route('/api/get-panic-attacks', methods=['GET'])
 def get_panic_attacks():
     """
@@ -40,7 +43,7 @@ def get_panic_attacks():
 
     return jsonify({"panic_attacks": panic_attacks}), 200
 
-
+@cross_origin()
 @routes.route('/api/sleep-data', methods=['GET'])
 def get_irregular_rhythm_notification():
     date = request.args.get('date')
@@ -50,7 +53,7 @@ def get_irregular_rhythm_notification():
 
     return sleep_data, 200
 
-
+@cross_origin()
 @routes.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     # Handle Fitbit verification request
@@ -88,6 +91,7 @@ def webhook():
 
 
 # 1. Calendar Sleep Tracker
+@cross_origin()
 @routes.route('/api/sleep-tracker', methods=['GET'])
 def get_sleep_tracker():
     # Get the date from query parameters, default to today
@@ -97,6 +101,7 @@ def get_sleep_tracker():
 
 
 # 2. Calendar Trend (Sleep Quality)
+@cross_origin()
 @routes.route('/api/sleep-quality', methods=['GET'])
 def get_sleep_quality():
     response = {
@@ -114,6 +119,7 @@ def get_sleep_quality():
 
 
 # 4. Heart Rate Page
+@cross_origin()
 @routes.route('/api/heart-rate', methods=['GET'])
 def get_heart_rate():
     date = request.args.get('date', datetime.today().strftime("%Y-%m-%d"))
@@ -122,6 +128,7 @@ def get_heart_rate():
 
 
 # 5. My Profile
+@cross_origin()
 @routes.route('/api/profile', methods=['GET'])
 def user_summary():
     try:
@@ -131,7 +138,7 @@ def user_summary():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
+@cross_origin()
 @routes.route('/api/alert-history', methods=['GET'])
 def get_alert_history():
     response = {
@@ -143,7 +150,7 @@ def get_alert_history():
     }
     return jsonify(response)
 
-
+@cross_origin()
 @routes.route('/api/confirm-panic-attack/<string:panic_id>', methods=['PUT'])
 def confirm_panic_attack(panic_id):
     try:
