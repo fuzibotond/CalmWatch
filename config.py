@@ -35,3 +35,13 @@ PANIC_THRESHOLD = {
     "hr_spike_increase": os.getenv("PANIC_THRESHOLD_HR_SPIKE_INCREASE"),  # Spike threshold for HR in beats per minute
     "hr_sustained_duration": os.getenv("PANIC_THRESHOLD_HR_SUSTAINED_DURATION")  # Duration in minutes for sustained elevated HR
 }
+
+panic_threshold_settings_sensitive = {
+  "PANIC_THRESHOLD_COVERAGE": 75,
+  "PANIC_THRESHOLD_HF": 0.5,
+  "PANIC_THRESHOLD_HR_INCREASE": 1.2,
+  "PANIC_THRESHOLD_HR_SPIKE_INCREASE": 10,
+  "PANIC_THRESHOLD_HR_SUSTAINED_DURATION": 3,
+  "PANIC_THRESHOLD_HR_ZONE_MINUTES": 5,
+  "PANIC_THRESHOLD_LF": 0.6
+}

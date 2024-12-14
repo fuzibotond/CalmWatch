@@ -47,15 +47,19 @@ def analyze_hrv_data(hrv_data):
 
             # Check if HRV data meets panic thresholds
             if (
-                    rmssd <= float(PANIC_THRESHOLD["rmssd"]) and
-                    hf >= PANIC_THRESHOLD["hf"] and
-                    lf >= PANIC_THRESHOLD["lf"] and
-                    coverage >= PANIC_THRESHOLD["coverage"]
+                rmssd <= float(PANIC_THRESHOLD["rmssd"]) and
+                hf >= PANIC_THRESHOLD["hf"] and
+                lf >= PANIC_THRESHOLD["lf"] and
+                coverage >= PANIC_THRESHOLD["coverage"]
             ):
                 metrics = {"rmssd": rmssd, "hf": hf, "lf": lf, "coverage": coverage}
-                criteria = {k: v for k, v in PANIC_THRESHOLD.items() if k in metrics}
+                criteria = {
+                    "rmssd_threshold": PANIC_THRESHOLD["rmssd"],
+                    "hf_threshold": PANIC_THRESHOLD["hf"],
+                    "lf_threshold": PANIC_THRESHOLD["lf"],
+                    "coverage_threshold": PANIC_THRESHOLD["coverage"]
+                }
                 save_panic_attack(timestamp, metrics, criteria, reason="HRV analysis", reason_type="hrv_rate")
-
 
 # Function to analyze daily heart rate zones
 def analyze_heart_rate_zones(heart_rate_data):
@@ -76,10 +80,15 @@ def analyze_heart_rate_zones(heart_rate_data):
             metrics = {
                 "resting_hr": resting_hr,
                 "elevated_minutes": elevated_minutes,
-                "hr_increase": hr_threshold
+                "hr_threshold": hr_threshold
             }
-            criteria = {k: v for k, v in PANIC_THRESHOLD.items() if k in metrics}
+            criteria = {
+                "resting_hr_threshold": PANIC_THRESHOLD.get("resting_hr", "N/A"),
+                "hr_zone_minutes_threshold": PANIC_THRESHOLD["hr_zone_minutes"],
+                "hr_increase_threshold": PANIC_THRESHOLD["hr_increase"]
+            }
             save_panic_attack(date, metrics, criteria, reason="Heart rate zone analysis", reason_type="heart_rate_zone")
+
 
     # Check for sustained heart rate spikes using intraday data
     intraday_data = heart_rate_data.get("activities-heart-intraday", {}).get("dataset", [])
