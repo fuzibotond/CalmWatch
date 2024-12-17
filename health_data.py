@@ -41,16 +41,16 @@ def analyze_hrv_data(hrv_data):
         for minute_data in entry['minutes']:
             timestamp = minute_data['minute']
             rmssd = minute_data['value'].get('rmssd', float('inf'))
-            hf = minute_data['value'].get('hf', 0)
-            lf = minute_data['value'].get('lf', 0)
-            coverage = minute_data['value'].get('coverage', 0)
+            hf = minute_data['value'].get('hf', 0.0)
+            lf = minute_data['value'].get('lf', 0.0)
+            coverage = minute_data['value'].get('coverage', 0.0)
 
             # Check if HRV data meets panic thresholds
             if (
                 rmssd <= float(PANIC_THRESHOLD["rmssd"]) and
-                hf >= PANIC_THRESHOLD["hf"] and
-                lf >= PANIC_THRESHOLD["lf"] and
-                coverage >= PANIC_THRESHOLD["coverage"]
+                hf >= float(PANIC_THRESHOLD["hf"]) and
+                lf >= float(PANIC_THRESHOLD["lf"]) and
+                coverage >= float(PANIC_THRESHOLD["coverage"])
             ):
                 metrics = {"rmssd": rmssd, "hf": hf, "lf": lf, "coverage": coverage}
                 criteria = {
