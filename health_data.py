@@ -65,7 +65,7 @@ def analyze_hrv_data(hrv_data):
 def analyze_heart_rate_zones(heart_rate_data):
     for daily_data in heart_rate_data['activities-heart']:
         date = daily_data['dateTime']
-        resting_hr = daily_data['value']['heartRateZones'].get("restingHeartRate", 0)
+        resting_hr = daily_data['value'].get("restingHeartRate", 0)
 
         elevated_minutes = 0
         for zone in daily_data['value'].get("heartRateZones", []):
