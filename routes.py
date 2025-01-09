@@ -56,7 +56,7 @@ def get_irregular_rhythm_notification():
 
 @cross_origin()
 @routes.route('/api/sleep-data/range', methods=['GET'])
-def get_irregular_rhythm_notification():
+def get_sleeping_data_by_ranges():
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
     fitbit = get_fitbit_session()
