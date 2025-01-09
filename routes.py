@@ -73,6 +73,22 @@ def get_sleeping_data_by_ranges():
 
 
 @cross_origin()
+@routes.route('/api/universal', methods=['GET'])
+def get_sleeping_data_by_ranges():
+    url = request.args.get('url')
+
+    fitbit = get_fitbit_session()
+
+    # Get the sleep data from Fitbit API
+    response = fitbit.get(f'{url}')
+    print("response", response)
+
+    # Ensure the response is valid and JSON is extracted
+    return response, 200
+
+
+
+@cross_origin()
 @routes.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     # Handle Fitbit verification request
