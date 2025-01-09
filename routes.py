@@ -53,6 +53,17 @@ def get_irregular_rhythm_notification():
 
     return sleep_data, 200
 
+
+@cross_origin()
+@routes.route('/api/sleep-data/range', methods=['GET'])
+def get_irregular_rhythm_notification():
+    startDate = request.args.get('startDate')
+    endDate = request.args.get('endDate')
+    fitbit = get_fitbit_session()
+    sleep_data = fetch_with_backoff(f'https://api.fitbit.com/1.2/user/-/sleep/date/{startDate}/{endDate}.json', fitbit)
+    print("sleep_data", sleep_data)
+
+    return sleep_data, 200
 @cross_origin()
 @routes.route('/webhook', methods=['GET', 'POST'])
 def webhook():
