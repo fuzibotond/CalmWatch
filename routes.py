@@ -60,10 +60,18 @@ def get_sleeping_data_by_ranges():
     startDate = request.args.get('startDate')
     endDate = request.args.get('endDate')
     fitbit = get_fitbit_session()
+
+    # Get the sleep data from Fitbit API
     sleep_data = fitbit.get(f'https://api.fitbit.com/1.2/user/-/sleep/date/{startDate}/{endDate}.json')
     print("sleep_data", sleep_data)
 
-    return sleep_data, 200
+    # Ensure the response is valid and JSON is extracted
+    if sleep_data.status_code == 200:
+        return jsonify(sleep_data.json()), 200
+    else:
+        return jsonify({'error': 'Failed to fetch sleep data', 'details': sleep_data.text}), sleep_data.status_code
+
+
 @cross_origin()
 @routes.route('/webhook', methods=['GET', 'POST'])
 def webhook():
