@@ -74,7 +74,7 @@ def get_sleeping_data_by_ranges():
 
 @cross_origin()
 @routes.route('/api/universal', methods=['GET'])
-def get_sleeping_data_by_ranges():
+def get_universal():
     url = request.args.get('url')
 
     fitbit = get_fitbit_session()
