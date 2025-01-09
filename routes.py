@@ -61,7 +61,7 @@ def get_sleeping_data_by_ranges():
     endDate = request.args.get('endDate')
     fitbit = get_fitbit_session()
     sleep_data = fitbit.get(f'https://api.fitbit.com/1.2/user/-/sleep/date/{startDate}/{endDate}.json')
-    print("sleep_data", sleep_data.json())
+    print("sleep_data", sleep_data)
 
     return sleep_data, 200
 @cross_origin()
