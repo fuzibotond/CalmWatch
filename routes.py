@@ -62,14 +62,11 @@ def get_sleeping_data_by_ranges():
     fitbit = get_fitbit_session()
 
     # Get the sleep data from Fitbit API
-    sleep_data = fitbit.get(f'https://api.fitbit.com/1.2/user/-/sleep/date/{startDate}/{endDate}.json')
+    sleep_data = fetch_with_backoff(f'https://api.fitbit.com/1.2/user/-/sleep/date/{startDate}/{endDate}.json', fitbit)
     print("sleep_data", sleep_data)
 
-    # Ensure the response is valid and JSON is extracted
-    if sleep_data.status_code == 200:
-        return jsonify(sleep_data.json()), 200
-    else:
-        return jsonify({'error': 'Failed to fetch sleep data', 'details': sleep_data.text}), sleep_data.status_code
+    # Ensure the response is valid and JSON is extracte
+    return sleep_data, 200
 
 
 @cross_origin()
